@@ -1,4 +1,4 @@
-package slice_tool
+package slice
 
 // IsEmpty if slice is empty
 func IsEmpty[T any](s []T) bool {
@@ -52,7 +52,7 @@ func Unique[T comparable](s []T) []T {
 }
 
 // Filter elements in slice by filter func, return new slice,won't change original slice
-func Filter[T comparable](s []T, filter func(item T, index int) bool) []T {
+func Filter[T any](s []T, filter func(item T, index int) bool) []T {
 	var newSlice = make([]T, 0)
 	for i := 0; i < len(s); i++ {
 		if filter(s[i], i) {
@@ -63,7 +63,7 @@ func Filter[T comparable](s []T, filter func(item T, index int) bool) []T {
 }
 
 // Reject elements in slice by reject func, return new slice,won't change original slice
-func Reject[T comparable](s []T, reject func(item T, index int) bool) []T {
+func Reject[T any](s []T, reject func(item T, index int) bool) []T {
 	var newSlice = make([]T, 0)
 	for i := 0; i < len(s); i++ {
 		if !reject(s[i], i) {
@@ -74,21 +74,21 @@ func Reject[T comparable](s []T, reject func(item T, index int) bool) []T {
 }
 
 // Copy make a copy of slice
-func Copy[T comparable](s []T) []T {
+func Copy[T any](s []T) []T {
 	var slice2 = make([]T, len(s))
 	copy(slice2, s)
 	return slice2
 }
 
 // Each call func for each element in slice
-func Each[T comparable](s []T, function func(item T, index int)) {
+func Each[T any](s []T, function func(item T, index int)) {
 	for i, t := range s {
 		function(t, i)
 	}
 }
 
 // Map every element in slice by mapper func
-func Map[T comparable, K any](s []T, mapper func(item T, index int) K) []K {
+func Map[T any, K any](s []T, mapper func(item T, index int) K) []K {
 	var newSlice = make([]K, len(s))
 	for i := 0; i < len(s); i++ {
 		newSlice[i] = mapper(s[i], i)
@@ -97,7 +97,7 @@ func Map[T comparable, K any](s []T, mapper func(item T, index int) K) []K {
 }
 
 // Every check every element in slice by check func
-func Every[T comparable](s []T, function func(item T, index int) bool) bool {
+func Every[T any](s []T, function func(item T, index int) bool) bool {
 	for i, t := range s {
 		if !function(t, i) {
 			return false
@@ -107,7 +107,7 @@ func Every[T comparable](s []T, function func(item T, index int) bool) bool {
 }
 
 // ForPage return new slice by page and page size, page starts from 1
-func ForPage[T comparable](s []T, page int, perPage int) []T {
+func ForPage[T any](s []T, page int, perPage int) []T {
 	start := page * perPage
 	end := min((page+1)*perPage, len(s))
 
@@ -122,7 +122,7 @@ func min(a, b int) int {
 }
 
 // Nth start form offset, return nth element in slice
-func Nth[T comparable](s []T, n int, offset int) []T {
+func Nth[T any](s []T, n int, offset int) []T {
 	var newSlice = make([]T, 0)
 	for i := offset; i < len(s); i++ {
 		if (i-offset)%n == 0 {
@@ -133,7 +133,7 @@ func Nth[T comparable](s []T, n int, offset int) []T {
 }
 
 // Pad insert element to slice, return new slice,won't change original slice
-func Pad[T comparable](s []T, count int, def T) []T {
+func Pad[T any](s []T, count int, def T) []T {
 	var newSlice = s
 	pad := count - len(s)
 	for i := 0; i < pad; i++ {
@@ -143,27 +143,27 @@ func Pad[T comparable](s []T, count int, def T) []T {
 }
 
 // Pop remove last element in slice and return it,will change original slice
-func Pop[T comparable](s *[]T) T {
+func Pop[T any](s *[]T) T {
 	res := (*s)[len(*s)-1]
 	*s = (*s)[:len(*s)-1]
 	return res
 }
 
 // Push insert element to slice's tail,return new slice length,will change original slice
-func Push[T comparable](s *[]T, val T) int {
+func Push[T any](s *[]T, val T) int {
 	*s = append(*s, val)
 	return len(*s)
 }
 
 // Shift remove first element in slice and return it,will change original slice
-func Shift[T comparable](s *[]T) T {
+func Shift[T any](s *[]T) T {
 	res := (*s)[0]
 	*s = (*s)[1:]
 	return res
 }
 
 // UnShift insert element to slice's head,return new slice length,will change original slice
-func UnShift[T comparable](s *[]T, val T) int {
+func UnShift[T any](s *[]T, val T) int {
 	*s = append([]T{val}, *s...)
 	return len(*s)
 }

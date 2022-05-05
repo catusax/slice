@@ -1,4 +1,4 @@
-package slice_tool
+package slice
 
 import (
 	"github.com/ysmood/got"

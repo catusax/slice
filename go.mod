@@ -1,4 +1,4 @@
-module slice_tool
+module github.com/linuxhub-group/slice
 
 go 1.18
 
