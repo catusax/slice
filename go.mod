@@ -1,4 +1,4 @@
-module github.com/linuxhub-group/slice
+module github.com/catusax/slice
 
 go 1.18
 
